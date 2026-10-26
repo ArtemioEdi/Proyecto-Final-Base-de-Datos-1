@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block titulo %}AutoAudit{% endblock %} - AutoAudit</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='estilos.css') }}">
+</head>
+<body>
+  <header class="barra">
+    <div class="barra-contenido">
+      <span class="marca">AutoAudit</span>
+      {% if g.usuario %}
+      <nav>
+        <a href="{{ url_for('inicio') }}">Inicio</a>
+        <a href="{{ url_for('historial') }}">Historial</a>
+      </nav>
+      <span class="usuario">{{ g.usuario }} · <a href="{{ url_for('salir') }}">Salir</a></span>
+      {% endif %}
+    </div>
+  </header>
+  <main>
+    {% for categoria, mensaje in get_flashed_messages(with_categories=true) %}
+    <p class="mensaje {{ categoria }}">{{ mensaje }}</p>
+    {% endfor %}
+    {% block contenido %}{% endblock %}
+  </main>
+</body>
+</html>

@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block titulo %}Iniciar sesión{% endblock %}
+{% block contenido %}
+<section class="tarjeta angosta">
+  <h1>Iniciar sesión</h1>
+  <p>Ingrese con su usuario de PostgreSQL.</p>
+  <form method="post" class="formulario">
+    <label>Usuario <input type="text" name="usuario" required autofocus></label>
+    <label>Contraseña <input type="password" name="contrasena"></label>
+    <button type="submit" class="boton">Entrar</button>
+  </form>
+</section>
+{% endblock %}

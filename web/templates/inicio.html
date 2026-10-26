@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+{% block titulo %}Inicio{% endblock %}
+{% block contenido %}
+<section class="tarjeta">
+  <h1>Tablas configuradas</h1>
+  {% if tablas %}
+  <div class="tabla-contenedor">
+    <table>
+      <thead>
+        <tr><th>Esquema</th><th>Tabla</th><th>Activa</th><th>Trigger</th><th>Fecha de generación</th><th>Acciones</th></tr>
+      </thead>
+      <tbody>
+        {% for esquema, tabla, activa, trigger, fecha in tablas %}
+        <tr>
+          <td>{{ esquema }}</td>
+          <td>{{ tabla }}</td>
+          <td>{% if activa %}<span class="pildora si">Sí</span>{% else %}<span class="pildora no">No</span>{% endif %}</td>
+          <td>{{ trigger or "Sin trigger" }}</td>
+          <td>{{ fecha | fecha }}</td>
+          <td class="acciones">
+            <a class="boton secundario" href="{{ url_for('configurar', esquema=esquema, tabla=tabla) }}">Configurar</a>
+            {% if trigger %}
+            <a class="boton secundario" href="{{ url_for('ver_trigger', esquema=esquema, tabla=tabla) }}">Ver trigger</a>
+            {% endif %}
+            {% if activa %}
+            <form method="post" action="{{ url_for('desactivar', esquema=esquema, tabla=tabla) }}">
+              <button type="submit" class="boton peligro">Desactivar</button>
+            </form>
+            {% endif %}
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  {% else %}
+  <p>Todavía no hay tablas configuradas.</p>
+  {% endif %}
+</section>
+
+<section class="tarjeta">
+  <h2>Configurar una tabla</h2>
+  <form method="get" action="{{ url_for('elegir_tabla') }}" class="acciones">
+    <select name="tabla" required aria-label="Tabla">
+      {% for esquema, tabla in disponibles %}
+      <option value="{{ esquema }}.{{ tabla }}">{{ esquema }}.{{ tabla }}</option>
+      {% endfor %}
+    </select>
+    <button type="submit" class="boton">Configurar tabla</button>
+  </form>
+</section>
+{% endblock %}

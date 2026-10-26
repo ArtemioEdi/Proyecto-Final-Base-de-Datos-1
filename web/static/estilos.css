@@ -1,0 +1,130 @@
+/* AutoAudit - estilos de la interfaz web */
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: system-ui, sans-serif;
+  font-size: 15px;
+  color: #1f2937;
+  background: #f3f4f6;
+}
+
+a { color: #1d4ed8; }
+
+h1 { font-size: 1.4rem; margin: 0 0 12px; }
+h2 { font-size: 1.1rem; margin: 20px 0 10px; }
+.tarjeta > h2:first-child { margin-top: 0; }
+
+/* Barra superior */
+.barra { background: #1e3a5f; color: #fff; }
+.barra-contenido {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 12px 16px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 24px;
+}
+.barra a { color: #fff; text-decoration: none; }
+.barra a:hover { text-decoration: underline; }
+.marca { font-weight: 700; font-size: 1.15rem; }
+.barra nav { display: flex; gap: 16px; }
+.usuario { margin-left: auto; font-size: 0.9rem; opacity: 0.9; }
+
+/* Contenido */
+main { max-width: 1100px; margin: 0 auto; padding: 20px 16px; }
+
+.tarjeta {
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  padding: 20px;
+  margin-bottom: 20px;
+}
+.angosta { max-width: 380px; margin: 40px auto; }
+
+/* Mensajes */
+.mensaje { padding: 10px 14px; border-radius: 6px; margin: 0 0 16px; border: 1px solid; }
+.mensaje.exito { background: #dcfce7; border-color: #86efac; color: #14532d; }
+.mensaje.error { background: #fee2e2; border-color: #fca5a5; color: #7f1d1d; }
+.mensaje.aviso { background: #fef9c3; border-color: #fde047; color: #713f12; }
+
+/* Formularios */
+.formulario label { display: block; margin-bottom: 12px; font-weight: 500; }
+.formulario input[type="text"],
+.formulario input[type="password"],
+.formulario input[type="date"],
+.formulario select { display: block; width: 100%; margin-top: 4px; }
+input, select {
+  font: inherit;
+  padding: 6px 8px;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  background: #fff;
+  color: inherit;
+}
+input[type="checkbox"], input[type="radio"] { width: 16px; height: 16px; padding: 0; }
+fieldset { border: 1px solid #e5e7eb; border-radius: 6px; margin: 0 0 12px; padding: 8px 12px; }
+legend { font-weight: 500; padding: 0 4px; }
+.formulario label.opcion { display: inline-flex; align-items: center; gap: 6px; margin: 4px 16px 4px 0; font-weight: 400; }
+.campos { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 0 16px; }
+
+/* Botones */
+.boton {
+  display: inline-block;
+  font: inherit;
+  font-size: 0.9rem;
+  padding: 7px 14px;
+  border: 0;
+  border-radius: 6px;
+  background: #1d4ed8;
+  color: #fff;
+  text-decoration: none;
+  cursor: pointer;
+  white-space: nowrap;
+}
+.boton:hover { background: #1e40af; }
+.boton.secundario { background: #e5e7eb; color: #1f2937; }
+.boton.secundario:hover { background: #d1d5db; }
+.boton.peligro { background: #dc2626; }
+.boton.peligro:hover { background: #b91c1c; }
+
+.acciones { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-top: 12px; }
+
+/* Tablas */
+.tabla-contenedor { overflow-x: auto; }
+table { width: 100%; border-collapse: collapse; font-size: 0.85rem; }
+th, td { padding: 8px 10px; text-align: left; border-bottom: 1px solid #e5e7eb; vertical-align: middle; }
+th { background: #f3f4f6; font-weight: 600; white-space: nowrap; }
+tbody tr:nth-child(even) { background: #f9fafb; }
+th.centro, td.centro { text-align: center; }
+td.acciones { display: table-cell; margin: 0; white-space: nowrap; }
+td.acciones > * { margin: 2px 4px 2px 0; display: inline-block; vertical-align: middle; }
+
+/* Píldoras */
+.pildora {
+  display: inline-block;
+  padding: 2px 10px;
+  border-radius: 999px;
+  font-size: 0.78rem;
+  font-weight: 600;
+}
+.pildora.si { background: #dcfce7; color: #166534; }
+.pildora.no { background: #e5e7eb; color: #374151; }
+.pildora.insert { background: #dbeafe; color: #1e40af; }
+.pildora.update { background: #fef3c7; color: #92400e; }
+.pildora.delete { background: #fee2e2; color: #991b1b; }
+
+/* Código */
+pre {
+  background: #111827;
+  color: #e5e7eb;
+  padding: 14px;
+  border-radius: 6px;
+  overflow-x: auto;
+  font-family: ui-monospace, Consolas, monospace;
+  font-size: 0.82rem;
+  line-height: 1.45;
+}

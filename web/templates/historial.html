@@ -1,0 +1,72 @@
+{% extends "base.html" %}
+{% block titulo %}Historial{% endblock %}
+{% block contenido %}
+<section class="tarjeta">
+  <h1>Historial de cambios</h1>
+  <form method="get" class="formulario">
+    <fieldset>
+      <legend>Tipo de búsqueda</legend>
+      <label class="opcion"><input type="radio" name="tipo" value="usuario"{% if args.get('tipo') != 'columna' %} checked{% endif %}> Por usuario</label>
+      <label class="opcion"><input type="radio" name="tipo" value="columna"{% if args.get('tipo') == 'columna' %} checked{% endif %}> Por columna</label>
+    </fieldset>
+    <div class="campos">
+      <label>Usuario
+        <select name="usuario">
+          {% for u in usuarios %}
+          <option value="{{ u }}"{% if args.get('usuario') == u %} selected{% endif %}>{{ u }}</option>
+          {% endfor %}
+        </select>
+      </label>
+      <label>Columna
+        <select name="columna">
+          {% for c in columnas %}
+          <option value="{{ c }}"{% if args.get('columna') == c %} selected{% endif %}>{{ c }}</option>
+          {% endfor %}
+        </select>
+      </label>
+      <label>Desde <input type="date" name="desde" value="{{ args.get('desde', '') }}"></label>
+      <label>Hasta <input type="date" name="hasta" value="{{ args.get('hasta', '') }}"></label>
+    </div>
+    <div class="acciones">
+      <button type="submit" class="boton">Buscar</button>
+      {% if filas is not none %}
+      <a class="boton secundario" href="{{ url_for('historial_csv', **args) }}">Exportar CSV</a>
+      {% endif %}
+    </div>
+  </form>
+</section>
+
+{% if filas is not none %}
+<section class="tarjeta">
+  {% if not filas %}
+  <p>No hay cambios registrados para este filtro</p>
+  {% else %}
+  {% if hay_mas %}
+  <p class="mensaje aviso">Se muestran las primeras 500 filas. Exporte el CSV para ver todas.</p>
+  {% endif %}
+  <div class="tabla-contenedor">
+    <table>
+      <thead>
+        <tr><th>Fecha y hora</th><th>Usuario</th><th>IP origen</th><th>Tabla</th><th>Columna</th><th>Evento</th><th>Registro</th><th>Valor anterior</th><th>Valor nuevo</th></tr>
+      </thead>
+      <tbody>
+        {% for f in filas %}
+        <tr>
+          <td>{{ f[0] | fecha(true) }}</td>
+          <td>{{ f[1] }}</td>
+          <td>{{ f[2] if f[2] is not none else "" }}</td>
+          <td>{{ f[3] }}.{{ f[4] }}</td>
+          <td>{{ f[5] }}</td>
+          <td><span class="pildora {{ f[6] | lower }}">{{ f[6] }}</span></td>
+          <td>{{ f[7] if f[7] is not none else "" }}</td>
+          <td>{{ f[8] if f[8] is not none else "" }}</td>
+          <td>{{ f[9] if f[9] is not none else "" }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  {% endif %}
+</section>
+{% endif %}
+{% endblock %}

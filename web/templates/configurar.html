@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% block titulo %}Configurar {{ esquema }}.{{ tabla }}{% endblock %}
+{% block contenido %}
+<section class="tarjeta">
+  <h1>Configurar {{ esquema }}.{{ tabla }}</h1>
+  <p>Marque los eventos que se deben auditar en cada columna.</p>
+  <form method="post">
+    <div class="tabla-contenedor">
+      <table>
+        <thead>
+          <tr><th>Columna</th><th>Tipo</th><th class="centro">INSERT</th><th class="centro">UPDATE</th><th class="centro">DELETE</th></tr>
+        </thead>
+        <tbody>
+          {% for columna, tipo, posicion in columnas %}
+          <tr>
+            <td>{{ columna }}</td>
+            <td>{{ tipo }}</td>
+            {% for evento in ("INSERT", "UPDATE", "DELETE") %}
+            <td class="centro"><input type="checkbox" name="{{ evento }}_{{ posicion }}" aria-label="{{ evento }} {{ columna }}"{% if (columna, evento) in marcadas %} checked{% endif %}></td>
+            {% endfor %}
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+    <div class="acciones">
+      <button type="submit" class="boton">Guardar y generar trigger</button>
+      <a class="boton secundario" href="{{ url_for('inicio') }}">Cancelar</a>
+    </div>
+  </form>
+</section>
+{% endblock %}
