@@ -1,4 +1,0 @@
-id,fecha_hora,usuario,ip_origen,esquema,tabla,columna,evento,registro_pk,valor_anterior,valor_nuevo
-2,2026-10-25 21:28:09.681237-06,luis,::1,ventas,cliente,saldo,INSERT,1,,100.00
-4,2026-10-25 21:28:09.700654-06,luis,::1,ventas,cliente,saldo,UPDATE,1,100.00,250.00
-6,2026-10-25 21:28:09.709204-06,luis,::1,ventas,cliente,saldo,DELETE,1,250.00,

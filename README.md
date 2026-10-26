@@ -1,6 +1,6 @@
 # AutoAudit
 
-Sistema de auditoría automatizado para PostgreSQL 18 (Windows 11).
+Sistema de auditoría automatizado para PostgreSQL 18 (Ubuntu 26.04 LTS y Windows 11).
 
 ## Estructura
 
@@ -22,7 +22,7 @@ Sistema de auditoría automatizado para PostgreSQL 18 (Windows 11).
 $env:Path += ";C:\Program Files\PostgreSQL\18\bin"
 $env:PGHOST = "localhost"
 $env:PGUSER = "postgres"
-$env:PGPASSWORD = "admin123"
+$env:PGPASSWORD = "tu_contraseña"
 $env:PGCLIENTENCODING = "UTF8"
 $env:PAGER = ""
 ```
@@ -30,8 +30,23 @@ $env:PAGER = ""
 ## Instalación
 
 ```powershell
-createdb autoaudit
+createdb -E UTF8 -T template0 autoaudit
 psql -v ON_ERROR_STOP=1 -d autoaudit -f instalar.sql
+```
+
+## Instalación en Ubuntu 26.04
+
+```bash
+sudo apt install -y postgresql-common
+sudo /usr/share/postgresql-common/pgdg/apt.postgresql.org.sh
+sudo apt install -y postgresql-18 python3-venv
+sudo -u postgres psql -c "ALTER USER postgres PASSWORD 'tu_contraseña'"
+sudo -u postgres createdb autoaudit
+export PGHOST=localhost PGUSER=postgres PGPASSWORD=tu_contraseña PGDATABASE=autoaudit
+psql -v ON_ERROR_STOP=1 -f instalar.sql
+python3 -m venv venv && source venv/bin/activate
+pip install -r web/requirements.txt
+python3 web/app.py
 ```
 
 ## Uso
